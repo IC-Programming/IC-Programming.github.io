@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<!--Copyright © Imesh Chamara 2018-->
+<!--Copyright © Imesh Chamara 2019-->
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<title>About IC-Tech</title>
 		<link rel="icon" href="/favicon.ico" />
 		<!--
@@ -15,67 +16,57 @@
 		<link rel="icon" type="image/png" href="/image/Logo.3/Logo.3.196.png" sizes="196x196"/>
 		<link rel="icon" type="image/png" href="/image/Logo.3/Logo.3.512.png" sizes="512x512"/>
 		<link rel="stylesheet" href="/stylesheet/main.css"/>
+		<link rel="stylesheet" href="/fonts/googleapis_family=Lato.css"/>
+		<link rel="stylesheet" href="/fonts/googleapis_family=Montserrat.css"/><script src="/script/main.js"></script>
+		<link rel="stylesheet" href="/fonts/fontawesome-free-5.8.1-web/css/all.css" />
 	</head>
-	<body>
-		<div style="display:flex;position:fixed; width:100%; height:50px; background-color:rgb(60,60,60); box-shadow:0px 0px 10px rgba(0,0,0,0.4);top:0px; left:0px; z-index:2; border-bottom:solid 2px rgb(0,122,204);">
-			<div style="display:block;width:100%; height:100%;">
-				<a class="top" style="float:left;" id="pname" href="/index.html">IC-Tech</a>
-				<div style="float:right;padding-top:8px;">
-					<!--<a class="top" id="toobutop">Tools</a>
-					<a class="top" id="setbutop">Settings</a>-->
-					<a class="top" id="setbutop" href="/html/Projects.html">Projects</a>
-					<a class="top" id="conbutop" href="/html/About.html">Contacts</a>
-					<a class="top" id="abtbutop" href="/html/About.html">About</a>
-				</div>
-			</div>
+<body>
+		<div class="ic-top-bar">
+			<a class="ic-top ic-hov-whi" style="float:left;" id="pname" href="/index.html">IC-Tech</a>
+			<div class="ic-hov-whi" id="top-dropdown-btn" onclick="topMenu();"></div>
+			<div id="ic-top-drbtn"><a class="ic-btn ic-btn-gra" href="/html/Projects.html">Projects</a><a class="ic-btn ic-btn-gra" href="/html/About.html">Contacts</a><a class="ic-btn ic-btn-gra" href="/html/About.html">About</a></div>
+			<div id="ic-top-raw"><a class="ic-top ic-hov-whi" id="setbutop" href="/html/Projects.html">Projects</a><a class="ic-top ic-hov-whi" id="conbutop" href="/html/About.html">Contacts</a><a class="ic-top ic-hov-whi" id="abtbutop" href="/html/About.html">About</a></div>
 		</div>
-		<noscript style="margin-top: 60px;display: flex;width: 100%;position: absolute;bottom: 0px;top: 0px;">
-				<iframe src="/html/BlockedJs.html" style="position:relative;height: 100%; width: 100%;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;" frameborder="0"></iframe>
-		</noscript>
-		<div id="root" style="margin-top:60px; display:none; width:100%;">
-			<div id="about" style="width:500px; margin:0 auto; position:relative;" class="dis">
+		<noscript><iframe src="/html/BlockedJs.html" frameborder="0"></iframe></noscript>
+		<div id="root" style="display: none;">
 				<style>
-					.headd{
-						font-family:'Segoe UI';
-						font-size:20px;
-						font-weight: bold;
-						display:block;
-						text-align:center;
-					}
-					.cpyri{
-						font-family:'Segoe UI';
-						font-size: 16px;
-						font-weight: bold;
-						display:block;
-						text-align:right;
-						margin-bottom: 40px;
-					}
-					.cont {
-						font-family: 'Segoe UI';
-						font-size: 16px;
-						display: block;
-						margin-top: 16px;
-						margin-bottom: 40px;
-					}
-					.link {
-						color: rgb(200,200,200);
-						font-family: 'Segoe UI';
-						font-size: 16px;
-						text-decoration: none;
-					}
+					.headd{font-family:"Montserrat", sans-serif;font-size:36px;display:block;}
+					.cpyri{font-family: "Lato", sans-serif;font-size: 16px;display: block;padding: 40px 0;padding-top: 40px;background-color: #f1f1f1;width: 100%;text-align: center;padding-top: 60px;}
+					.cont{font-family:"Lato", sans-serif;font-size:18px;line-height: 1.5;}
+					.link{color:#f44336;font-family:'Segoe UI';font-size:16px;text-decoration:none;}
+					.sect{display: flex;max-width: 890px;margin-left: auto;margin-right: auto;}
+					#root{background-color:#fff;color:#000;}
+					.sect-1{padding: 34px 20px;}
+					.sect-2{background-color: #f1f1f1;}
+					.sect-3{display: inline-block;width: 66.66666%;}
+					.ico{display:inline-block;width: 33.33333%;text-align: center;color: #f44336;}
+					.ic-p-ico{margin: 5px;color:#999;cursor:pointer;}
+					.ic-p-ico:hover{color:#f44336;}
+					@media (max-width:600px){.sect-3,.ico{display:block;width:100%;}.sect{display:block}.ico{margin:10px;}}
 				</style>
-				<a class="headd">About this Webpage</a>
-				<p class="cont">This webpage is a one of my public webpages. I use this page for upload my project. And Inform about public notices. I use Html, Javascript, Css StyleSheet to Program this site so your use use compatible Browser for this site. if you have problem about anything please contact me. this web page was created in 2018/08/04 At 02:20 AM.</p>
-				<a class="headd">About the Programmer</a>
-				<p class="cont">My Name is Imesh and i am 16yr programmer.i working with android, Linux and Windows platforms. I did not go to programming class or causes so i don't know about everything in programming. But learn programming by follow Tutorials and Examples. I Started programming with Arduino MCU Bord. It used C Language so i learn some from it. Then i turn to learn computer language. Like that i learn C, VB.NET, C# , Html, C++, Javascript, CSS languages. But i steel don't know everything of those Programming Language. This Webpage is another Example for that. I like to learn something new, make something new, build something new so i build this.</p>
-				<a class="headd">Contacts</a>
-				<p class="cont" style="margin-bottom:0;">email: <a href="mailto:imesh1chamara@gmail.com" class="link textsel">imesh1chamara@gmail.com</a></p>
-				<p class="cont" style="margin-top:0;">phone: <a class="link textsel">+94717401880, +94758117557</a></p>
-				<a class="cpyri">Copyright © Imesh Chamara 2018</a>
-			</div>
+				<div class="sect-1"><div class="sect"><i class="ico fas fa-server fa-10x"></i><div class="sect-3">
+					<a class="headd">About this Webpage</a>
+					<p class="cont" style="">This webpage is a one of my public webpages. I use this page for upload my project. And Inform about public softwares, Programming libraries. I use Html, Javascript, Css StyleSheet to Program this site. So your have to use compatible Browser for this site. if you have problem about something, please contact me. this web page was created in 2018/08/04 At 02:20 AM.</p>
+				</div></div></div>
+				<div class="sect-1 sect-2"><div class="sect"><div class="sect-3">
+					<a class="headd">About the Programmer</a>
+					<p class="cont">My Name is Imesh Chamara and I'm seventeen. I live in Udupihilla, Matale, Sri Lanka and study in St. Thomas' College Matale. I'm a programmer.I working with android, Linux and Windows platforms. I did not go to programming class or causes to study so i don't know about everything in programming. But learn programming by follow Tutorials and Examples. I Started programming with Arduino MCU Bord. It used C Language so I learn the basic programming from it. Then I wanted to do something else so learn computer language and web languages. Like C, VB.NET, C# , Html, C++, Javascript, CSS, PHP languages. But i don't know everything in those Programming Language. This Webpage is another Example for my programming skills. I like to learn something new, make something new, build something new so I build this website.</p>
+				</div><i class="ico fas fa-user-circle fa-10x"></i></div></div>
+				<div class="sect-1"><div class="sect"><i class="ico fas fa-address-card fa-10x"></i><div class="sect-3">
+					<a class="headd">Contacts</a>
+					<p class="cont" style="margin-bottom:0;">email: <a href="mailto:imesh1chamara@gmail.com" class="link textsel">imesh1chamara@gmail.com</a>, <a href="mailto:ic.imesh.chamara@gmail.com" class="link textsel">ic.imesh.chamara@gmail.com</a></p>
+					<p class="cont" style="margin-top:0;">phone: <a class="link textsel">+94717401880, +94758117557</a></p>
+				</div></div></div>
+				<div style="text-align:center;margin:10px 0;">
+					<a class="fab fa-github fa-2x ic-p-ico" href="https://github.com/IC-Programming"></a>
+					<a class="fab fa-google-plus fa-2x ic-p-ico" href="https://plus.google.com/u/0/115820475043722713439"></a>
+					<a class="fab fa-youtube fa-2x ic-p-ico" href="https://www.youtube.com/channel/UCI_eiCuV2UH9UHGIQrig7Ww"></a>
+					<a class="fab fa-youtube fa-2x ic-p-ico" href="https://www.youtube.com/channel/UCjOItCJ9TyNphWlEoUR7cIw"></a>
+					<a class="fab fa-instagram fa-2x ic-p-ico" href="https://www.instagram.com/imeshchamara/"></a>
+					<a class="fab fa-whatsapp fa-2x ic-p-ico" href="#"></a>
+				</div>
+				<a class="cpyri">Copyright © Imesh Chamara 2019</a>
 		</div>
-		<script>
-			document.getElementById("root").style.display = "block";
-		</script>
-	</body>
+		<script>document.getElementById("root").style.display = "table";</script>
+</body>
 </html>

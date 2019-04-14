@@ -1,150 +1,49 @@
 <!DOCTYPE html>
+<!--Copyright © Imesh Chamara 2019-->
 <html>
     <head>
+		<meta charset="utf-8"/>
         <title>JavaScript is Disabled</title>
         <style>
-            .dis {
-                display: inline-block;
-                background-color: #3f3f3f;
-                padding: 10px 10px 10px 10px;
-                border-radius: 5px;
-                margin: 10px 10px 10px 10px;
-            }
-            body
-            {
-                color:white;
-            }
+            .dis{display:inline-block;padding:10px 10px 10px 10px;margin:0;width:100%;color:black;}
+			.dis-1{background:#f1f1f1;}
+			.dis-2{background:white;}
+            body{color:white;font-family:'Segoe UI';background-color:#f44336;margin:0;padding:0;}
         </style>
     </head>
-    <body style = "font-family : 'Segoe UI'; background-color: #222;">
+    <body>
         <div style="display:block;">
-            <div style="display:inline-block;background-color:#3f3f3f;padding:10px 10px 10px 10px;border-radius:5px;">
+            <div style="margin:0;text-align:center;">
                 <h1>Javascript is Disabled in your web browser.</h1>
                 <p>This page is using the javascript so you have to enable it.</p>
             </div>
         </div>
-        <div id="line" style="display:inline-block; border:2px solid red;border-radius: 5px;margin-top: 10px;padding: 10px 10px 10px 10px;">
-            <h4 style="margin-top: 0px;margin-bottom: 5px;">Test</h4>
-            <a id="testres">Javascript is Disabled.<p style="margin-top: 0px;margin-bottom: 0px;">If Javascript is Enabled this text was changed.</p></a>
-            <script>
-                document.getElementById("testres").innerText = "Javascript is Enabled.";
-                document.getElementById("line").style.borderColor = "green";
-            </script>
-        </div>
-        <h2 style="margin-top:10px;">How to enable Javascript</h2>
+        <h2 class="dis-1" style="margin:0px;color:black;padding:10px;text-align:center;">How to enable Javascript</h2>
         <div id="disc">
-            <div id="pnlFirefox" class="dis">
-                <h3 id="firefox">
-                    Mozilla Firefox
-                </h3>
-                <ol>
-                    <li>
-                        In the address bar, type about:config and press Enter.</li>
-                    <li>
-                        Click "I'll be careful, I promise" if a warning message appears.</li>
-                    <li>
-                        In the search box, search for javascript.enabled</li>
-                    <li>
-                        Toggle the "javascript.enabled" preference (right-click and select "Toggle" or double-click the preference) to change the value from "false" to "true".</li>
-                    <li>
-                        Click on the "Reload current page" button of the web browser to refresh the page.</li>
-                </ol>
+            <div class="dis dis-2">
+                <h3>Mozilla Firefox</h3>
+                <ol><li>In the address bar, type about:config and press Enter.</li><li>Click "I'll be careful, I promise" if a warning message appears.</li><li>In the search box, search for javascript.enabled</li><li>Toggle the "javascript.enabled" preference (right-click and select "Toggle" or double-click the preference) to change the value from "false" to "true".</li><li>Click on the "Reload current page" button of the web browser to refresh the page.</li></ol>
 		    </div>
-            <div id="pnlIE" class="dis">
-                <h3 id="ie">
-                    Internet Explorer
-                </h3>
-                <ol>
-                    <li>
-                        On web browser menu click "Tools" icon and select "Internet Options".</li>
-                    <li>
-                        In the "Internet Options" window select the "Security" tab.</li>
-                    <li>
-                        On the "Security" tab click on the "Custom level..." button.</li>
-                    <li>
-                        When the "Security Settings - Internet Zone" dialog window opens, look for the "Scripting" section.</li>
-                    <li>
-                        In the "Active Scripting" item select "Enable".</li>
-                    <li>
-                        When the "Warning!" window pops out asking "Are you sure you want to change the settings for this zone?" select "Yes".</li>
-                    <li>
-                        In the "Internet Options" window click on the "OK" button to close it.</li>
-                    <li>
-                        Click on the "Refresh" button of the web browser to refresh the page.</li>
-                </ol>
+            <div class="dis dis-1">
+                <h3>Internet Explorer</h3>
+                <ol><li>On web browser menu click "Tools" icon and select "Internet Options".</li><li>In the "Internet Options" window select the "Security" tab.</li><li>On the "Security" tab click on the "Custom level..." button.</li><li>When the "Security Settings - Internet Zone" dialog window opens, look for the "Scripting" section.</li><li>In the "Active Scripting" item select "Enable".</li><li>When the "Warning!" window pops out asking "Are you sure you want to change the settings for this zone?" select "Yes".</li><li>In the "Internet Options" window click on the "OK" button to close it.</li><li>Click on the "Refresh" button of the web browser to refresh the page.</li></ol>
 	        </div>
-            <div id="pnlIElte8" class="dis">
-                <h5 id="ielte8">
-                    Internet Explorer &lt; 9
-                </h5>
-                <ol>
-                    <li>
-                        On web browser menu click "Tools" and select "Internet Options"</li>
-                    <li>
-                        In the "Internet Options" window select the "Security" tab.</li>
-                    <li>
-                        On the "Security" tab click on the "Custom level..." button.</li>
-                    <li>
-                        When the "Security Settings - Internet Zone" dialog window opens, look for the "Scripting" section.</li>
-                    <li>
-                        In the "Active Scripting" item select "Enable".</li>
-                    <li>
-                        When the "Warning!" window pops out asking "Are you sure you want to change the settings for this zone?" select "Yes".</li>
-                    <li>
-                        In the "Internet Options" window click on the "OK" button to close it.</li>
-                    <li>
-                        Click on the "Refresh" button of the web browser to refresh the page.</li>
-                </ol>
+            <div class="dis dis-2">
+                <h5>Internet Explorer &lt;9</h5>
+                <ol><li>On web browser menu click "Tools" and select "Internet Options"</li><li>In the "Internet Options" window select the "Security" tab.</li><li>On the "Security" tab click on the "Custom level..." button.</li><li>When the "Security Settings - Internet Zone" dialog window opens, look for the "Scripting" section.</li><li>In the "Active Scripting" item select "Enable".</li><li>When the "Warning!" window pops out asking "Are you sure you want to change the settings for this zone?" select "Yes".</li><li>In the "Internet Options" window click on the "OK" button to close it.</li><li>Click on the "Refresh" button of the web browser to refresh the page.</li></ol>
 	        </div>
-            <div id="pnlChromeNew" class="dis">
-                <h3 id="chrome">
-                    Google Chrome
-                </h3>
-                <ol>
-                    <li>
-                        On the web browser menu click on the "Customize and control Google Chrome" and select "Settings".</li>
-                    <li>
-                        In the "Settings" section click on the "Show advanced settings..."</li>
-                    <li>
-                        Under the the "Privacy" click on the "Content settings...".</li>
-                    <li>
-                        When the dialog window opens, look for the "JavaScript" section and select "Allow all sites to run JavaScript (recommended)".</li>
-                    <li>
-                        Click on the "OK" button to close it.</li>
-                    <li>
-                        Close the "Settings" tab.</li>
-                    <li>
-                        Click on the "Reload this page" button of the web browser to refresh the page.</li>
-                </ol>
+            <div class="dis dis-1">
+                <h3>Google Chrome</h3>
+                <ol><li>On the web browser menu click on the "Customize and control Google Chrome" and select "Settings".</li><li>In the "Settings" section click on the "Show advanced settings..."</li><li>Under the the "Privacy" click on the "Content settings...".</li><li>When the dialog window opens, look for the "JavaScript" section and select "Allow all sites to run JavaScript (recommended)".</li><li>Click on the "OK" button to close it.</li><li>Close the "Settings" tab.</li><li>Click on the "Reload this page" button of the web browser to refresh the page.</li></ol>
 	        </div>
-            <div id="pnlOpera" class="dis">
-                <h3 id="opera">
-                    Opera
-                </h3>
-                <ul class="liplace">
-                    <li>1.
-                        Click on Opera icon "Menu" and than "Settings".</li>
-                    <li>2.
-                        Click on "Websites" and then choose "Allow all sites to run JavaScript (recommended)"</li>
-                    <li>3.
-                        Click on the "Reload" button of the web browser to refresh the page.</li>
-                </ul>
+            <div class="dis dis-2">
+                <h3>Opera</h3>
+                <ul><li>1.Click on Opera icon "Menu" and than "Settings".</li><li>2.Click on "Websites" and then choose "Allow all sites to run JavaScript (recommended)"</li><li>3.Click on the "Reload" button of the web browser to refresh the page.</li></ul>
 	         </div>
-            <div id="pnlSafari" class="dis">
-                <h3 id="safari">
-                    Apple Safari
-                </h3>
-                <ol>
-                    <li>
-                        On the web browser menu click on the "Edit" and select "Preferences".</li>
-                    <li>
-                        In the "Preferences" window select the "Security" tab.</li>
-                    <li>
-                        In the "Security" tab section "Web content" mark the "Enable JavaScript" checkbox.</li>
-                    <li>
-                        Click on the "Reload the current page" button of the web browser to refresh the page.</li>
-                </ol>
+            <div class="dis dis-1">
+                <h3>Apple Safari</h3>
+                <ol><li>On the web browser menu click on the "Edit" and select "Preferences".</li><li>In the "Preferences" window select the "Security" tab.</li><li>In the "Security" tab section "Web content" mark the "Enable JavaScript" checkbox.</li><li>Click on the "Reload the current page" button of the web browser to refresh the page.</li></ol>
 	        </div>
         </div>
-    </body>
+</body>
 </html>

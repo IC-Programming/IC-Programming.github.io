@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Projects IC-Tech</title>
+		<title>Converter IC-Tech</title>
 		<link rel="icon" href="/favicon.ico" />
 		<!--
 		Resize Failed
@@ -16,6 +16,7 @@
 		<link rel="icon" type="image/png" href="/image/Logo.3/Logo.3.196.png" sizes="196x196"/>
 		<link rel="icon" type="image/png" href="/image/Logo.3/Logo.3.512.png" sizes="512x512"/>
 		<link rel="stylesheet" href="/stylesheet/main.css"/>
+		<link rel="stylesheet" href="/stylesheet/Converter.css"/>
 		<link rel="stylesheet" href="/fonts/googleapis_family=Lato.css"/>
 		<link rel="stylesheet" href="/fonts/googleapis_family=Montserrat.css"/><script src="/script/main.js"></script>
 	</head>
@@ -28,14 +29,26 @@
 		</div>
 		<noscript><iframe src="/html/BlockedJs.html" frameborder="0"></iframe></noscript>
 		<div id="root">
-			<style>.ic-p-btn{width:150px;}</style>
-			<div style="width:100%;display:block;position:relative;text-align:center;margin-top:80px;">
-			<a class="ic-btn ic-btn-bla ic-p-btn" href="/html/Converter.html">Converter</a><br>
-			<!--a class="ic-btn ic-btn-bla ic-p-btn" href="/html/AudioPlayer.html">AudioPlayer</a><br>
-			<a class="ic-btn ic-btn-bla ic-p-btn" href="/html/OS2.html">Project IC.OS2</a><br-->
-			<a class="ic-btn ic-btn-bla ic-p-btn" href="/html/SchoolProject.html">School Projects</a><br>
-			<a class="ic-btn ic-btn-bla ic-p-btn" href="/html/SoftwareDownload.html">Downloads</a></div>
+			<span style="width:100%;display:block;font-size:25px;text-align:center;margin-bottom:20px;">අක්ෂර පරිවර්තකය</span>
+			<div id="ic-p-cont" style="display:none;width:90%;margin:0 auto;height:calc(100% - 52px);">
+				<div style="display:table;width:100%;margin:20px 0;height:calc(100% - 40px);">
+				<div id="ic-p-di1" style="width:100%;">
+				<textarea id="txtin" onchange="changed();" onkeyup="auto_grow(this);" spellcheck="false"></textarea>
+				<textarea id="txtout" readonly="readonly" spellcheck="false"></textarea>
+				</div>
+				<div style="display:block;width:100%;margin:0px auto;height:auto;padding-top:10px;">
+				<select><option>Singlish</option><!--<option>සිංහල (Unicode)</option><option>සිංහල DL-Manel</option>--></select>
+				<span class="sitxli">අක්ෂර</span>
+				<select><option>සිංහල (Unicode)</option><!--<option>සිංහල DL-Manel</option>--></select>
+				<span class="sitxli">අක්ෂර වෙතට.</span>
+				<br>
+				<a style="margin:20px 0;margin-bottom: 0;" class="ic-btn ic-btn-bla" href="/downloads/Letter%20Converter-(Beta%20Portable%20Version).exe">Download for Windows</a>
+					</div>
+				</div>
+			</div>
+			<div id="ic-p-load" class="ic-rot-ani" style="display:block;margin:auto;"></div>
 		</div>
 		<script>document.getElementById("root").style.display = "block";</script>
+		<script type="text/javascript" src="/script/convert.js"></script>
 	</body>
 </html>
