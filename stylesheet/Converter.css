@@ -1,60 +1,14 @@
-select {
-	margin: 0 5px;
-}
-textarea {
-	width: 47%;
-	height: 300px;
-	resize: none;
-	font-size: 20px;
-}
-#txtin {
-	font-family: 'Segoe UI';
-	float: left;
-}
-#txtout {
-	font-family: 'Noto Sans Sinhala', 'Iskoola Pota';
-	float: right;
-}
-.sintxli {
-	display: inline-block;
-	font-size: 15px;
-	margin-bottom: 5px;
-}
-.coblogdiv1{
-	width:100%;
-	height:100%;
-	position:absolute;
-	left: 0px;
-	top: 0px;
-	display:flex;
-	background-color: #000c;
-}
-.coblogdiv2{
-	width:300px;
-	height:100px;
-	margin:auto auto;
-	display:inline-block;
-	background-color:#3c3c3c;
-	border-radius:4px 5px;
-	border:solid 2px #007acc;
-}
-.coblogspan1{
-	display: block;
-	width: 100%;
-	text-align: center;
-	font-weight: bold;
-}
-.cobloginput1{
-	margin: 6px;
-	width: 94%;
-	color: rgb(200,200,200);
-	background-color: #0000;
-	border: solid 2px #007acc;
-}
-.cobloga1{
-	padding: 6px;
-	margin: 2px auto;
-	display: block;
-	width: 40px;
-	height: 20px;
-}
+@font-face {font-family:'IC Noto Sans Sinhala';font-style: normal;font-weight:400;src:local('Noto Sans Sinhala Regular'),local('NotoSansSinhala-Regular'), url(/fonts/NotoSansSinhala-Regular.woff) format('woff');}
+select {margin: 0 5px;}
+textarea {width: 48%;height: 100%;resize: none;font-size: 16px;border: 1px solid black;display: inline-block;}
+#txtin {font-family: 'Segoe UI';/*! float: left; */}
+#txtout {font-family: 'IC Noto Sans Sinhala', 'Iskoola Pota';}
+.sintxli {display: inline-block;font-size: 15px;margin-bottom: 5px;}
+.coblogdiv1{width:100%;height:100%;position:absolute;left: 0px;top: 0px;display:flex;background-color: #000c;}
+.coblogdiv2{width:300px;height:100px;margin:auto auto;display:inline-block;background-color:#3c3c3c;border-radius:4px 5px;border:solid 2px #007acc;}
+.coblogspan1{display: block;width: 100%;text-align: center;font-weight: bold;}
+.cobloginput1{margin: 6px;width: 94%;color: rgb(200,200,200);background-color: #0000;border: solid 2px #007acc;}
+.cobloga1{padding: 6px;margin: 2px auto;display: block;width: 40px;height: 20px;}
+.ic-rot-ani{border-color:#fff #f44336;}
+@media (max-width: 540px){#ic-p-di1{height:auto;}textarea{width:99%;margin-left:auto;margin-right:auto;}}
+@media (min-width: 540px){#ic-p-di1{height:100%;}#txtout{float:right;}#ic-p-di1{height: 100%;display: table-row;}textarea{height:100% !important}}
