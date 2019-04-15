@@ -18,3 +18,4 @@
 #ic_p_log a{margin:0;width: 100%;padding: 10px 0;}
 button {border: 0;}
 #ic_p_itm{display: none;background-color: #f1f1f1;padding: 20px 0;}
+#ic_p_err_bi{display:none;font-size: 100px;width: 100%;text-align: center;margin: 18px 0;color: #f44336;}

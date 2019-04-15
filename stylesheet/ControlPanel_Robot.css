@@ -14,3 +14,4 @@
 button {border: 0;}
 #ic_p_itm{display: none;background-color: #f1f1f1;padding: 20px 0;}
 canvas {border: 1px solid #7979f8;background-color: #fff;}
+#ic_p_err_bi{display:none;font-size: 100px;width: 100%;text-align: center;margin: 18px 0;color: #f44336;}
