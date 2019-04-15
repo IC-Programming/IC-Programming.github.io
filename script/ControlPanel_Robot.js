@@ -20,12 +20,13 @@ var IC_RobotControl =	{
 	canvas : null,
 	lstvalue : -1,
 	value : 0,
-	//car : new Image(),
+	onChanged : null,
+	/*car : new Image(),*/
 	init : function ()		{
 		this.canvas = document.getElementById("IC_RobotControl_canvas");
         this.canvas.width = 480;
         this.canvas.height = 480;
-		//this.car.src = "http://localhost:9999/1450414843.png";
+		/*this.car.src = "http://localhost:9999/1450414843.png";*/
         this.context = this.canvas.getContext("2d");
 		this.x = 0;
 		this.y = 0;
@@ -167,6 +168,11 @@ var IC_RobotControl =	{
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	},
 	draw : function()		{
+		if(IC_RobotControl.lstvalue != IC_RobotControl.value && IC_RobotControl.onChanged != null)
+		{
+			IC_RobotControl.lstvalue = IC_RobotControl.value;
+			IC_RobotControl.onChanged(IC_RobotControl.value);
+		}
 		IC_RobotControl.clear();
 		var _X = IC_RobotControl.width / 3;
 		var _Y = IC_RobotControl.height / 3;
@@ -184,7 +190,7 @@ var IC_RobotControl =	{
 		else if(IC_RobotControl.value == 6)	{__X=_X*2;	__Y=_Y*2;	}
 		else if(IC_RobotControl.value == 7)	{__X=_X;	__Y=_Y*2;	}
 		else if(IC_RobotControl.value == 8)	{__X=0;		__Y=_Y*2;	}
-		//ctx.rect(__X, __Y, _X, _Y);
+		/*ctx.rect(__X, __Y, _X, _Y);*/
 		ctx.ellipse(__X + (_X / 2), __Y + (_Y / 2), _X / 2, _Y / 2, 0, 0, 7);
 		ctx.closePath();
 		ctx.fill();
@@ -241,34 +247,18 @@ var DontLoadData = true;
 var dataupdate = null;
 var access = 0;
 var data = null;
-var update_speed_a = 0;
-var update_speed_m = 0;
 var DataUpdate_hand = null;
 var status_ = -1;
 /*Please use the secondary server as api server*/
 /*Because my servers has limited web traffic*/
 var rootURL = loadRoot();/*"http://ic-tech-s2.dx.am/";*/
 var http_connection_fails = 0;
-HttpReq_XHR_Data("GET", rootURL + "api/ControlPanel.php?ty=user&ac=get", null, function (res, Status) {
-	res = JSON.parse(res);
-	if(res.success != true)
-	{
-		if(res.error != null && res.error != undefined) ReloadError(res.error);
-		return;
-	}
-	DataUpdate_hand = setInterval(DataUpdate, 1500);
-	update_speed_m = 0;
-	UsDa = res.response;
-	setSta(1);
-	SetUser();
-	resetOk();
-});
 function HideElements()		{
 	ic_p_log.style.display = "none";
-	IC_RobotControl.canvas.style.display = "none";
 	ic_p_acc.style.display = "none";
 	ic_p_load.style.display = "none";
 	ic_p_fai.style.display = "none";
+	IC_RobotControl.canvas.style.display = "none";
 }
 function ShowError(msg)		{
 	HideElements();
@@ -330,6 +320,10 @@ function HttpReq_XHR_Data(meth, url, data, call)	{
 	var xhr;
 	if (window.XMLHttpRequest)	xhr = new XMLHttpRequest();
 	else						xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	/*xhr.open(meth, url + ((url.indexOf("?") >= 0 ? "&" : "?") + "t=" + new Date().getTime()));*/
+	if(url.indexOf("?") >= 0)	url += "&";
+	else 						url += "?";
+	url += "t=" + new Date().getTime();
 	xhr.open(meth, url);
 	if (data != undefined && data != null)	xhr.setRequestHeader("IC-Web-Data", atob(data));
 	xhr.onreadystatechange = function () {
@@ -381,10 +375,10 @@ function SetUser()		{
 function resetOk()		{
 	DontLoadData = false;
 	ic_p_log.style.display = "none";
-	IC_RobotControl.canvas.style.display = "block";
 	ic_p_acc.style.display = "flex";
 	ic_p_fai.style.display = "none";
 	ic_p_load.style.display = "none";
+	IC_RobotControl.canvas.style.display = "block";
 }
 function accclick()		{
 	if(ic_p_log.style.display == "none" || ic_p_log.style.display == "")	ic_p_log.style.display = "block";
@@ -428,9 +422,51 @@ function login()		{
 	});
 }
 function DataUpdate()	{
+	if(DontLoadData) return;
+	HttpReq_XHR_Data("GET", rootURL + "api/ControlPanel.php?ty=ra&ac=get", null, function (res, Status) {
+		res = JSON.parse(res);
+		if(res.success != true)
+		{
+			if(res.error != null && res.error != undefined) ShowError(res.error);
+			return;
+		}
+		data = res.response;
+		access = data.ra;
+		if(access == 0)
+		{
+			ReloadError("This page was blocked by the administrator. Try again in a few moments.");
+			document.getElementById("ic_p_err_bi").style.display = "block";
+			setSta(4);
+		}
+		else		setSta(1);
+	});
 }
 function start()		{
 	IC_RobotControl.init();
-	setSta(1);
-	resetOk();
+	ShowLoading();
+	HttpReq_XHR_Data("GET", rootURL + "api/ControlPanel.php?ty=user&ac=get", null, function (res, Status) {
+		res = JSON.parse(res);
+		if(res.success != true)
+		{
+			if(res.error != null && res.error != undefined) ReloadError(res.error);
+			return;
+		}
+		DataUpdate_hand = setInterval(DataUpdate, 4000);
+		UsDa = res.response;
+		setSta(1);
+		SetUser();
+		resetOk();
+	});
+	IC_RobotControl.onChanged = function (value)
+	{
+		if(access == 0)	return;
+		HttpReq_XHR_Data("GET", rootURL + "api/ControlPanel.php?ty=rd&ac=set&va=" + value, null, function (res, Status) {
+			res = JSON.parse(res);
+			if(res.success != true)
+			{
+				if(res.error != null && res.error != undefined) ShowError(res.error);
+				return;
+			}
+		});
+	};
 }
