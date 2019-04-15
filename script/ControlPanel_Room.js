@@ -125,6 +125,10 @@ function HttpReq_XHR_Data(meth, url, data, call)	{
 	var xhr;
 	if (window.XMLHttpRequest)	xhr = new XMLHttpRequest();
 	else						xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	/*xhr.open(meth, url + ((url.indexOf("?") >= 0 ? "&" : "?") + "t=" + new Date().getTime()));*/
+	if(url.indexOf("?") >= 0)	url += "&";
+	else 						url += "?";
+	url += "t=" + new Date().getTime();
 	xhr.open(meth, url);
 	if (data != undefined && data != null)	xhr.setRequestHeader("IC-Web-Data", atob(data));
 	xhr.onreadystatechange = function () {
@@ -289,10 +293,9 @@ function DataUpdate()	{
 			else					access = 0;
 			if(data.access == 0)
 			{
-				/*ReloadError("The Administator have close The Server for " + UsDa.name + (UsDa.user == null ? "s" : ""));*/
-				var msg = "The Administator have close The Server for " + UsDa.name;
-				if(UsDa.user == null)	msg += "s";
-				ReloadError(msg);
+				ReloadError("This page was blocked by the administrator. Try again in a few moments.");
+				document.getElementById("ic_p_err_bi").style.display = "block";
+				setSta(4);
 			}
 			else
 			{
