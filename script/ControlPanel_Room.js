@@ -45,15 +45,15 @@ var status_ = -1;
 var rootURL = loadRoot();/*"http://ic-tech-s2.dx.am/";*/
 var http_connection_fails = 0;
 HttpReq_XHR_Data("GET", rootURL + "api/ControlPanel.php?ty=user&ac=get", null, function (res, Status) {
-	UsDa = JSON.parse(res);
-	if(UsDa.success != true)
+	res = JSON.parse(res);
+	if(res.success != true)
 	{
-		if(res.error != null && res.error != undefined) ShowError(res.error);
+		if(res.error != null && res.error != undefined) ReloadError(res.error);
 		return;
 	}
 	DataUpdate_hand = setInterval(DataUpdate, 1500);
 	update_speed_m = 0;
-	UsDa = UsDa.response;
+	UsDa = res.response;
 	setSta(1);
 	SetUser();
 	resetOk();
@@ -74,7 +74,7 @@ function ShowError(msg)	{
 	dataupdate = null;
 	access = 0;
 }
-function ReloadError()	{
+function ReloadError(msg)	{
 	HideElements();
 	ic_p_fai.style.display = "block";
 	ic_p_fai_msg.innerText = msg;
@@ -130,7 +130,16 @@ function HttpReq_XHR_Data(meth, url, data, call)	{
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState == 4 && xhr.status != 0) {
 			http_connection_fails = 0;
-			call(xhr.response, xhr.status);
+			if(xhr.response) {
+				try {
+					JSON.parse(xhr.response);
+					call(xhr.response, xhr.status);
+				} catch(e) {
+					errorcal();
+				}
+			}
+			else	errorcal();
+			function errorcal(){call("{\"success\":false,\"error\":\"Server response error\"}", xhr.status);}
 		}
 	};
 	xhr.onerror = function (e) {
