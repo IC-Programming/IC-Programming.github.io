@@ -1,0 +1,16 @@
+/* Copyright © Imesh Chamara 2019 */
+#root,body,html{background-color:#fff;color:#000;}
+.ic-p-tx1,#ic_p_acc span{font-family:"Lato",sans-serif;font-size:18px;line-height:1.5;}
+.ic-p-sta{display: flex;width: 200px;margin: auto;margin-bottom: 16px;}
+#ic_p_sta_ico{margin: 0 6px;color: #f44336;}
+.ic-rot-ani{border-color:#f44336 #fff;}
+#ic_p_acc{display:none;margin: 20px auto;width:200px;cursor: pointer;}
+#ic_p_acc i{color: #f44336;margin-right:12px;}
+#ic_p_acc span{margin-top: 7px;}
+#ic_p_log{display: none;margin: 20px auto;width: 200px;}
+#ic_p_log span{display:block;width:100%;margin-top:10px;}
+#ic_p_log input{width: calc(100% - 6px);padding: 2px;border: 1px solid #000;}
+#ic_p_log a{margin:0;width: 100%;padding: 10px 0;}
+button {border: 0;}
+#ic_p_itm{display: none;background-color: #f1f1f1;padding: 20px 0;}
+canvas {border: 1px solid #7979f8;background-color: #fff;}
