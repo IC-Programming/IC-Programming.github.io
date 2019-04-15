@@ -90,28 +90,40 @@ function _main()					{
 		}		
 		SendData("\"update\":[".$ac.",".$dc."]");
 	}
+	else if($type == "rd" && $action == "get")	{
+		$id = InitID($coid);
+		$main = json_decode(ReadFile_("ControlPanel/main.json"));
+		$data = ReadFile_($id);
+		$ac = getUserAccess($id, $main, $data, false);
+		SendData_(json_encode(array("rd" => ($ac == 0 ? null : $main->robot_data))));
+	}
+	else if($type == "ra" && $action == "get")	{
+		$id = InitID($coid);
+		$main = json_decode(ReadFile_("ControlPanel/main.json"));
+		$data = ReadFile_($id);
+		$ac = getUserAccess($id, $main, $data, false);
+		SendData_(json_encode(array("ra" => $ac)));
+	}
+	else if($type == "rd" && $action == "set")	{
+		$id = InitID($coid);
+		$value = (int)(($value == "" || $value == null || $value == false || $value == 0 || strpos("012345678", $value) === false) ? "0" : $value);
+		$main = json_decode(ReadFile_("ControlPanel/main.json"));
+		$data = ReadFile_($id);
+		$ac = getUserAccess($id, $main, $data, false);
+		if($ac < 2)	SendError("Access Denied", 13);
+		if($main->access != $value)
+		{
+			$main->robot_data = $value;
+			$main->robot_data_code++;
+			WriteFile_("ControlPanel/main.json", json_encode($main));
+		}
+		SendData("\"rd\":".$value);
+	}
 	else if($type == "data" && $action == "get")	{
 		$id = InitID($coid);
 		$main = json_decode(ReadFile_("ControlPanel/main.json"));
 		$data = ReadFile_($id);
-		$ac = -1;
-		if($data == "")	$ac = $main->access;
-		else
-		{
-			$users = json_decode(ReadFile_("ControlPanel/users.json"));
-			$data = json_decode($data);
-			$ind = -1;
-			$len = count($users);
-			for($i=0; $i<$len && $ind == -1; $i++)	if($users[$i]->user == $data->user) $ind = $i;
-			$users = $users[$ind];
-			if(($users->access == -1 && $data->ac != $main->access) || ($users->access != -1 && $data->ac != $users->access))
-			{
-				$data->co++;
-				$data->ac = $users->access == -1 ? $main->access : $users->access;
-				WriteFile_($id,json_encode($data));
-			}
-			$ac = $data->ac;
-		}
+		$ac = getUserAccess($id, $main, $data);
 		SendData_(json_encode(array("access" => $ac,"data" => ($ac == 0 ? null : $main->data))));
 	}
 	else if($type == "data" && $action == "set")	{
@@ -121,24 +133,7 @@ function _main()					{
 			SendError("Requesting for invalid index", 11);
 		$main = json_decode(ReadFile_("ControlPanel/main.json"));
 		$data = ReadFile_($id);
-		$ac = -1;
-		if($data == "")	$ac = $main->access;
-		else
-		{
-			$users = json_decode(ReadFile_("ControlPanel/users.json"));
-			$data = json_decode($data);
-			$ind = -1;
-			$len = count($users);
-			for($i=0; $i<$len && $ind == -1; $i++)	if($users[$i]->user == $data->user) $ind = $i;
-			$users = $users[$ind];
-			if(($users->access == -1 && $data->ac != $main->access) || ($users->access != -1 && $data->ac != $users->access))
-			{
-				$data->co++;
-				$data->ac = $users->access == -1 ? $main->access : $users->access;
-				WriteFile_($id,json_encode($data));
-			}
-			$ac = $data->ac;
-		}
+		$ac = getUserAccess($id, $main, $data);
 		if($index == "a")
 		{
 			if($ac != 3)	SendError("Access Denied", 12);
@@ -166,9 +161,9 @@ function _main()					{
 	}
 	else if($type == "server" && $action == "get")	SendData_(json_encode(array(
 		"name" => "IC-Tech Server",
-		"version" => 2,
+		"version" => 2.1,
 		"version2" => "201904020013",
-		"update" => "201904082243",
+		"update" => "201904152306",
 		"ResponseType" => "ICJD2",
 		"Programmer" => array(
 			"name" => "Imesh Chamara",
@@ -285,5 +280,24 @@ function InitID($coid_)				{
 		$id = "ControlPanel/min_1/0".$coid_;
 	}
 	return $id;
+}
+function getUserAccess($id, $main, $data, $mode = true)	{
+	if($data == "")		return ($mod == true ? $main->access : $main->robot_access);
+	else
+	{
+		$data = json_decode(json_decode(ReadFile_("ControlPanel/users.json")));
+		$ind = -1;
+		$len = count($users);
+		for($i=0; $i<$len && $ind == -1; $i++)	if($users[$i]->user == $data->user) $ind = $i;
+		$users = $users[$ind];
+		if($mod != true)	return ($users->robot_access == -1 ? $main->robot_access : $users->robot_access);
+		if(($users->access == -1 && $data->ac != $main->access) || ($users->access != -1 && $data->ac != $users->access))
+		{
+			$data->co++;
+			$data->ac = $users->access == -1 ? $main->access : $users->access;
+			WriteFile_($id,json_encode($data));
+		}
+		return $data->ac;
+	}
 }
 ?>
