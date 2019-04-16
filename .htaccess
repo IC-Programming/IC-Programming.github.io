@@ -1,0 +1,10 @@
+ErrorDocument 404 http://ic-tech.dx.am/html/404.html
+ErrorDocument 403 http://ic-tech.dx.am/html/404.html
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} ^/404/$
+RewriteRule ^(.*)$ /html/404.html [L]
+RewriteCond %{REQUEST_URI} ^/403/$
+RewriteRule ^(.*)$ /html/404.html [L]
