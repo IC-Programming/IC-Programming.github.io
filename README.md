@@ -1,7 +1,7 @@
 # IC-Tech
-[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://en.wikipedia.org/wiki/HTML)
+[![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)](https://en.wikipedia.org/wiki/JavaScript)
+[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
 
 ```
 This is my website. This web site using html, javascript, css, php in this server.
@@ -34,3 +34,11 @@ only 'https://' secured server can use it.
 
 So I can't continue this project with my free website.
 ```
+
+## Author
+
+**Imesh Chamara**
+
+*Email* : [imesh1chamara@gmail.com](mailto:imesh1chamara@gmail.com) , [ic.imesh.chamara@gmail.com](mailto:ic.imesh.chamara@gmail.com)
+
+*Website* : [ic-tech.dx.am](http://ic-tech.dx.am)
