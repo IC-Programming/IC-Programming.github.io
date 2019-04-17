@@ -34,3 +34,11 @@ only 'https://' secured server can use it.
 
 So I can't continue this project with my free website.
 ```
+
+### Author
+
+**Imesh Chamara**
+
+*Email* : [imesh1chamara@gmail.com](mailto:imesh1chamara@gmail.com) , [ic.imesh.chamara@gmail.com](mailto:ic.imesh.chamara@gmail.com)
+
+*Website* : [ic-tech.dx.am](http://ic-tech.dx.am)
