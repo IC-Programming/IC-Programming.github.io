@@ -1,2 +1,5 @@
-Top Secret
-File can't be show in public
+[
+	{"user":"admin","name":"Imesh Chamara","pass":"admin Password","type":2,"access":2,"robot_access":2},
+	{"user":"imesh","name":"Imesh","pass":"Password imesh","type":1,"access":2,"robot_access":2},
+	{"user":"user_0","name":"The User 0","pass":"user0password","type":1,"access":1,"robot_access":-1}
+]
