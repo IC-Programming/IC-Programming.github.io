@@ -247,6 +247,63 @@ var IC_RobotControl =	{
 		clearInterval(interval);
 	}*/
 };
+var IC_IDB = {
+	idb : null,
+	init : function() {
+		window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.OIndexedDB || window.msIndexedDB;
+		window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.OIDBTransaction || window.msIDBTransaction;
+		window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.OIDBKeyRange || window.msIDBKeyRange;
+		if (!window.indexedDB) return;
+		var DBOpenRequest = window.indexedDB.open("IC_IDB", 4);
+		DBOpenRequest.onerror = function(event) {
+			console.log({"error":event});
+		};
+		DBOpenRequest.onsuccess = function(event) {
+			IC_IDB.idb = DBOpenRequest.result;
+		};
+		DBOpenRequest.onupgradeneeded = function(event) {
+			var db = event.target.result;
+			db.onerror = function(event) {
+				console.log({"error":event});
+			};
+			var objectStore = db.createObjectStore("UserData", { keyPath: "UserData" });
+			objectStore.createIndex("robot_ui_view", "robot_ui_view", { unique: true });
+			objectStore.createIndex("user", "user", { unique: false });
+			objectStore.createIndex("id", "id", { unique: false });
+			objectStore.transaction.oncomplete = function(event) {
+				var UserData = db.transaction("UserData", "readwrite").objectStore("UserData");
+				UserData.add({UserData : "UserData", robot_ui_view : 0, user : "", id : -1});
+			};
+		};
+	},
+	setView : function (v)	{
+		if(IC_IDB.idb == null) return;
+		var ObjectStore = IC_IDB.idb.transaction(["UserData"], "readwrite").objectStore("UserData");
+		var ObjectStoreRequest = ObjectStore.get("UserData");
+		ObjectStoreRequest.onsuccess = function() {
+			var UserData = ObjectStoreRequest.result;
+			UserData.robot_ui_view = v;
+			var updateRequest = ObjectStore.put(UserData);
+			updateRequest.onerror = function(event) {
+				console.log({"error":event});
+			};
+		};
+	},
+	getView : function (call)	{
+		if(IC_IDB.idb == null) return;
+		var ObjectStore = IC_IDB.idb.transaction(["UserData"], "readwrite").objectStore("UserData");
+		var ObjectStoreRequest = ObjectStore.get("UserData");
+		ObjectStoreRequest.onsuccess = function() {
+			var UserData = ObjectStoreRequest.result;
+			call(UserData.robot_ui_view);
+		};
+	}
+};
+window.onload = function () { 
+	IC_IDB.init();
+	start();
+};
+
 var ic_p_sta_icocls = [ "fa-sync-alt", "fa-check-circle", "fa-times-circle", "fa-lock", "fa-eye-slash", "fa-dizzy"];
 var ic_p_acc_icls = ["fa-user-circle", "fa-user-tie", "fa-user-secret"];
 var UsDa = null;
@@ -461,28 +518,41 @@ function OnData(value)	{
 		}
 	});
 }
+function SetStyle(v) {
+	var e1 = ic_p_style_s1, e2 = ic_p_style_s2;
+	if(v != 0)
+	{
+		e1 = ic_p_style_s2;
+		e2 = ic_p_style_s1;
+	}
+	e1.classList.remove("ic-p-style-c2");
+	e2.classList.remove("ic-p-style-c1");
+	e1.classList.add("ic-p-style-c1");
+	e2.classList.add("ic-p-style-c2");
+	/*IC_RobotControl.canvas.style.display = (v != 0 ? "none" : "block");
+	ic_p_btn_con.style.display = (v != 0 ? "block" : "none");*/
+	if(v != 0)	{
+		IC_RobotControl.canvas.style.display = "none";
+		ic_p_btn_con.style.display = "block";
+	}
+	else	{
+		IC_RobotControl.canvas.style.display = "block";
+		ic_p_btn_con.style.display = "none";
+	}
+	IC_IDB.setView(v);
+}
 function start()		{
 	function mouse_up(e)	{
 		if((e.buttons & 1) == 0)	OnData(0);
 	};
 	ic_p_style_s1.onclick = function ()	{
 		if(ic_p_style_s1.classList.contains("ic-p-style-c1")) return;
-		ic_p_style_s1.classList.remove("ic-p-style-c2");
-		ic_p_style_s2.classList.remove("ic-p-style-c1");
-		ic_p_style_s1.classList.add("ic-p-style-c1");
-		ic_p_style_s2.classList.add("ic-p-style-c2");
-		IC_RobotControl.canvas.style.display = "block";
-		ic_p_btn_con.style.display = "none";
+		SetStyle(0);
 		mode_btn = 0;
 	};
 	ic_p_style_s2.onclick = function ()	{
 		if(ic_p_style_s2.classList.contains("ic-p-style-c1")) return;
-		ic_p_style_s2.classList.remove("ic-p-style-c2");
-		ic_p_style_s1.classList.remove("ic-p-style-c1");
-		ic_p_style_s2.classList.add("ic-p-style-c1");
-		ic_p_style_s1.classList.add("ic-p-style-c2");
-		IC_RobotControl.canvas.style.display = "none";
-		ic_p_btn_con.style.display = "block";
+		SetStyle(1);
 		mode_btn = 1;
 	};
 	var el = document.getElementById("ic_p_btn_f");
@@ -523,6 +593,9 @@ function start()		{
 		setSta(1);
 		SetUser();
 		resetOk();
+		IC_IDB.getView(function (v) {
+			SetStyle(v);
+		});
 	});
 	IC_RobotControl.onChanged = OnData;
 }
