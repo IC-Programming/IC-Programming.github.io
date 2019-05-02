@@ -12,8 +12,10 @@ function _main()					{
 	$action = $_REQUEST["ac"];
 	$index = $_REQUEST["in"];
 	$value = $_REQUEST["va"];
-	//$token = $_REQUEST["to"];
-	$coid = initCookie();
+	$bot = $_REQUEST["bot"];
+	$bot = $bot == true || $bot == "true" || $bot == "1";
+	if($bot == true)	$coid = null;
+	else				$coid = initCookie();
 	InitFiles();
 	if($type == null)			SendError("Requesting no data type", 4);
 	else if($action == null)	SendError("Requesting no action", 5);
@@ -91,11 +93,18 @@ function _main()					{
 		SendData("\"update\":[".$ac.",".$dc."]");
 	}
 	else if($type == "rd" && $action == "get")	{
-		$id = InitID($coid);
+		if($bot != true)	$id = InitID($coid);
 		$main = json_decode(ReadFile_("ControlPanel/main.json"));
-		$data = ReadFile_($id);
-		$ac = getUserAccess($id, $main, $data, false);
-		SendData_(json_encode(array("rd" => ($ac == 0 ? null : $main->robot_data))));
+		if($bot != true)
+		{
+			$data = ReadFile_($id);
+			$ac = getUserAccess($id, $main, $data, false);
+			SendData_(json_encode(array("rd" => ($ac == 0 ? null : $main->robot_data))));
+		}
+		else
+		{
+			SendData_Bot("rd ".$main->robot_data);
+		}
 	}
 	else if($type == "ra" && $action == "get")	{
 		$id = InitID($coid);
@@ -186,11 +195,6 @@ function generateRandomString()		{
 	for ($i = 0; $i < $length; $i++)	$randomString .= $characters[rand(0, $charactersLength - 1)];
 	return $randomString;
 }
-function SendError($Msg,$code)		{
-	echo "{\"success\": false,\"error\":\"$Msg\",\"code\":$code}";
-	http_response_code(500);
-	exit();
-}
 function ReadFile_($name)			{
 	$file = fopen($name, "r");
 	if($file == false)		SendError("Error in opening file", 1);
@@ -239,6 +243,11 @@ function InitFiles()				{
 		}
 	}
 }
+function SendError($Msg,$code)		{
+	echo "{\"success\": false,\"error\":\"$Msg\",\"code\":$code}";
+	http_response_code(500);
+	exit();
+}
 function BoolStr($boo)				{
 	return ($boo?"true":"false");
 }
@@ -249,6 +258,11 @@ function SendData($response, $success = true, $response_code = 200)	{
 }
 function SendData_($response, $success = true)	{
 	echo "{\"success\":".BoolStr($success).",\"response\":".$response."}";
+	http_response_code(200);
+	exit();
+}
+function SendData_Bot($response, $success = true)	{
+	echo "<ic ".($success == true ? "1" : "0")." ".$response." >";
 	http_response_code(200);
 	exit();
 }
