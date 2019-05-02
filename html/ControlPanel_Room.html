@@ -40,7 +40,18 @@
 				<a id="ic_p_logout" style="display:none;" class="ic-btn ic-btn-bla" onclick="logout();">Logout</a>
 				<form id="ic_p_log_f" action="/html/ControlPanel_Room.html" method="post"><div id="ic_p_login"><span>User Name</span><input id="ic_p_log_u" name="user" required="required" type="text"><span id="ic_p_log_n"  style="display: none;color:#f44336;font-size: 14px;margin: 0;">Enter Your User Name</span><span>Password</span><input id="ic_p_log_p" name="pass" required="required" type="password"><span style="color:#f44336;">No Users can be create at the moment!</span><button type="submit" style="width:0;height:0;border:0;display:inline-block;"></button><a class="ic-btn ic-btn-bla" onclick="login();">Login</a></div></form>
 			</div>
-			<div style="display: none;" id="ic_p_fai"><i id="ic_p_err_bi" class="fas fa-eye-slash"><span id="ic_p_fai_msg" style="display: block;text-align: center;color: #f44336;">User Name and Password did not match.</span><button id="ic_p_fai_btn" class="ic-btn ic-btn-bla" style="margin: 10px auto;display: block;" onclick="resetOk();">OK</button></div>
+			<div style="display: none;" id="ic_p_fai"><i id="ic_p_err_bi" class="fas fa-eye-slash"></i><span id="ic_p_fai_msg" style="display: block;text-align: center;color: #f44336;">User Name and Password did not match.</span><button id="ic_p_fai_btn" class="ic-btn ic-btn-bla" style="margin: 10px auto;display: block;" onclick="resetOk();">OK</button></div>
+
+			<div id="disqus_thread"></div>
+			<script>
+			(function() {
+			var d = document, s = d.createElement('script');
+			s.src = 'https://ic-tech.disqus.com/embed.js';
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+			})();
+			</script>
+
 		</div>
 		<script>document.getElementById("root").style.display = "block";</script>
 		<script src="/script/ControlPanel_Room.js"></script>
