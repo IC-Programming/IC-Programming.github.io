@@ -14,7 +14,11 @@ var ic_p_fai_msg = document.getElementById("ic_p_fai_msg");
 var ic_p_fai_btn = document.getElementById("ic_p_fai_btn");
 var ic_p_logout = document.getElementById("ic_p_logout");
 var ic_p_login = document.getElementById("ic_p_login");
-
+var ic_p_style_s1 = document.getElementById("ic_p_style_s1");
+var ic_p_style_s2 = document.getElementById("ic_p_style_s2");
+var ic_p_btn_con = document.getElementById("ic_p_btn_con");
+var ic_p_container = document.getElementById("ic_p_container");
+var mode_btn = 0;
 var IC_RobotControl =	{
 	keymap: {},
 	canvas : null,
@@ -37,6 +41,7 @@ var IC_RobotControl =	{
 		this.width = this.canvas.width;
 		this.height = this.canvas.height;
 		document.onkeydown  = function (e)		{
+			if(mode_btn == 1) return;
 			e = e || event;
 			if(e.target.nodeName == "INPUT")return;
 			var key = IC_RobotControl.keyman(e.keyCode);
@@ -49,6 +54,7 @@ var IC_RobotControl =	{
 			}
 		};
 		document.onkeyup  = function (e)		{
+			if(mode_btn == 1) return;
 			e = e || event;
 			if(e.target.nodeName == "INPUT")return;
 			var key = IC_RobotControl.keyman(e.keyCode);
@@ -67,6 +73,7 @@ var IC_RobotControl =	{
 			mouse(e);
 		};
 		document.onmouseup = function(e)		{
+			if(mode_btn == 1) return;
 			e = e || event;
 			IC_RobotControl.keymap[5] = (e.buttons & 1) == 1;
 			if(!IC_RobotControl.keymap[5])
@@ -111,6 +118,7 @@ var IC_RobotControl =	{
 			evt.target.ownerDocument.dispatchEvent(newEvt);
 		}
 		function mouse(e)	{
+			if(mode_btn == 1) return;
 			if (IC_RobotControl.keymap[5])	{
 				IC_RobotControl.x = (e.clientX - IC_RobotControl.canvas.offsetLeft) - ((IC_RobotControl.width / 3) / 2);
 				IC_RobotControl.y = (e.clientY - IC_RobotControl.canvas.offsetTop) - ((IC_RobotControl.height / 3) / 2);
@@ -222,7 +230,8 @@ var IC_RobotControl =	{
 		ctx.ellipse(IC_RobotControl.x + (_X / 2), IC_RobotControl.y + (_Y / 2), _X / 2, _Y / 2, 0, 0, 7);
 		ctx.closePath();
 		ctx.fill();
-	}/*,
+	}
+	/*,
 	update : function()		{
 		IC_RobotControl.x += IC_RobotControl.cx;
 		IC_RobotControl.y += IC_RobotControl.cy;
@@ -258,7 +267,7 @@ function HideElements()		{
 	ic_p_acc.style.display = "none";
 	ic_p_load.style.display = "none";
 	ic_p_fai.style.display = "none";
-	IC_RobotControl.canvas.style.display = "none";
+	ic_p_container.style.display = "none";
 }
 function ShowError(msg)		{
 	HideElements();
@@ -378,7 +387,7 @@ function resetOk()		{
 	ic_p_acc.style.display = "flex";
 	ic_p_fai.style.display = "none";
 	ic_p_load.style.display = "none";
-	IC_RobotControl.canvas.style.display = "block";
+	ic_p_container.style.display = "block";
 }
 function accclick()		{
 	if(ic_p_log.style.display == "none" || ic_p_log.style.display == "")	ic_p_log.style.display = "block";
@@ -441,7 +450,65 @@ function DataUpdate()	{
 		else		setSta(1);
 	});
 }
+function OnData(value)	{
+	if(access == 0)	return;
+	HttpReq_XHR_Data("GET", rootURL + "api/ControlPanel.php?ty=rd&ac=set&va=" + value, null, function (res, Status) {
+		res = JSON.parse(res);
+		if(res.success != true)
+		{
+			if(res.error != null && res.error != undefined) ShowError(res.error);
+			return;
+		}
+	});
+}
 function start()		{
+	function mouse_up(e)	{
+		if((e.buttons & 1) == 0)	OnData(0);
+	};
+	ic_p_style_s1.onclick = function ()	{
+		if(ic_p_style_s1.classList.contains("ic-p-style-c1")) return;
+		ic_p_style_s1.classList.remove("ic-p-style-c2");
+		ic_p_style_s2.classList.remove("ic-p-style-c1");
+		ic_p_style_s1.classList.add("ic-p-style-c1");
+		ic_p_style_s2.classList.add("ic-p-style-c2");
+		IC_RobotControl.canvas.style.display = "block";
+		ic_p_btn_con.style.display = "none";
+		mode_btn = 0;
+	};
+	ic_p_style_s2.onclick = function ()	{
+		if(ic_p_style_s2.classList.contains("ic-p-style-c1")) return;
+		ic_p_style_s2.classList.remove("ic-p-style-c2");
+		ic_p_style_s1.classList.remove("ic-p-style-c1");
+		ic_p_style_s2.classList.add("ic-p-style-c1");
+		ic_p_style_s1.classList.add("ic-p-style-c2");
+		IC_RobotControl.canvas.style.display = "none";
+		ic_p_btn_con.style.display = "block";
+		mode_btn = 1;
+	};
+	var el = document.getElementById("ic_p_btn_f");
+	el.onmousedown = function(e)	{
+		e = e || event;
+		if((e.buttons & 1) == 1)	OnData(3);
+	};
+	el.onmouseup = mouse_up;
+	el = document.getElementById("ic_p_btn_l");
+	el.onmousedown = function(e)	{
+		e = e || event;
+		if((e.buttons & 1) == 1)	OnData(1);
+	};
+	el.onmouseup = mouse_up;
+	el = document.getElementById("ic_p_btn_r");
+	el.onmousedown = function(e)	{
+		e = e || event;
+		if((e.buttons & 1) == 1)	OnData(5);
+	};
+	el.onmouseup = mouse_up;
+	el = document.getElementById("ic_p_btn_b");
+	el.onmousedown = function(e)	{
+		e = e || event;
+		if((e.buttons & 1) == 1)	OnData(7);
+	};
+	el.onmouseup = mouse_up;
 	IC_RobotControl.init();
 	ShowLoading();
 	HttpReq_XHR_Data("GET", rootURL + "api/ControlPanel.php?ty=user&ac=get", null, function (res, Status) {
@@ -457,7 +524,7 @@ function start()		{
 		SetUser();
 		resetOk();
 	});
-	IC_RobotControl.onChanged = function (value)
+	IC_RobotControl.onChanged = OnData;/*function (value)
 	{
 		if(access == 0)	return;
 		HttpReq_XHR_Data("GET", rootURL + "api/ControlPanel.php?ty=rd&ac=set&va=" + value, null, function (res, Status) {
@@ -468,5 +535,5 @@ function start()		{
 				return;
 			}
 		});
-	};
+	};*/
 }
