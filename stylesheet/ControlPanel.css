@@ -1,0 +1,104 @@
+/* Copyright © Imesh Chamara 2019 */
+#root, body, html {
+	background-color:#fff;
+	color:#000;
+}
+#ic_p_sta_ico, .ic-p-itm i, #ic_p_acc i, #ic_p_err_bi {
+	color: #f44336;
+}
+.ic-rot-ani {
+	border-color:#f44336 #fff;
+}
+.ic-p-tx1, #ic_p_acc span, .ic-p-itm span {
+	font-family:"Lato", sans-serif;
+}
+.ic-p-tx1, #ic_p_acc span {
+	font-size:18px;
+	line-height:1.5;
+}
+.ic-p-sta {
+	display: flex;
+	width: 200px;
+	margin: auto;
+	margin-bottom: 16px;
+}
+#ic_p_sta_ico {
+	margin: 0 6px;
+}
+.ic-p-itm  {
+	width: 200px;
+	margin: 6px auto;
+	display: flex;
+}
+.ic-p-itm span {
+	font-size: 16px;
+	margin-top: 4px;
+}
+.ic-p-itm i {
+	margin-left: auto;
+	cursor: pointer;
+}
+.ic-p-itmi  {
+	margin-left: 0 !important;
+	margin-right: 10px;
+}
+#ic_p_acc {
+	display:none;
+	margin: 20px auto;
+	width:200px;
+	cursor: pointer;
+}
+#ic_p_acc i {
+	margin-right:12px;
+}
+#ic_p_acc span {
+	margin-top: 7px;
+}
+#ic_p_log {
+	display: none;
+	margin: 20px auto;
+	width: 200px;
+}
+#ic_p_log span {
+	display:block;
+	width:100%;
+	margin-top:10px;
+}
+#ic_p_log input {
+	width: calc(100% - 6px);
+	padding: 2px;
+	border: 1px solid #000;
+}
+#ic_p_log a {
+	margin:0;
+	width: 100%;
+	padding: 10px 0;
+}
+button  {
+	border: 0;
+}
+#ic_p_itm {
+	display: none;
+	background-color: #f1f1f1;
+	padding: 20px 0;
+}
+#ic_p_err_bi {
+	display:none;
+	font-size: 100px;
+	width: 100%;
+	text-align: center;
+	margin: 18px 0;
+}
+#disqus_thread {
+	width: 60%;
+	margin: 0 auto;
+	margin-top: 40px;
+	border: 2px solid #f44336;
+	padding: 1%;
+	border-radius: 10px;
+}
+@media (max-width: 680px) {
+	#disqus_thread {
+		width:90%;
+	}
+}
