@@ -524,16 +524,5 @@ function start()		{
 		SetUser();
 		resetOk();
 	});
-	IC_RobotControl.onChanged = OnData;/*function (value)
-	{
-		if(access == 0)	return;
-		HttpReq_XHR_Data("GET", rootURL + "api/ControlPanel.php?ty=rd&ac=set&va=" + value, null, function (res, Status) {
-			res = JSON.parse(res);
-			if(res.success != true)
-			{
-				if(res.error != null && res.error != undefined) ShowError(res.error);
-				return;
-			}
-		});
-	};*/
+	IC_RobotControl.onChanged = OnData;
 }
