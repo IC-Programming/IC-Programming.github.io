@@ -68,17 +68,12 @@ a {
 	background-color:#ccc;
 }
 #top-dropdown-btn {
-	font: normal normal normal 18px/1 FontAwesome;
-	padding:16px;
-	padding-top:15px;
+	padding:15px;
 	float:right;
-	height:15px;
-	width:18px;
+	height:16px;
+	width:16px;
 	display:none;
 	cursor:pointer;
-}
-#top-dropdown-btn:before {
-	content: "\f0c9";
 }
 #ic-top-drbtn {
 	display:none;
