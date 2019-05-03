@@ -25,12 +25,10 @@ var IC_RobotControl =	{
 	lstvalue : -1,
 	value : 0,
 	onChanged : null,
-	/*car : new Image(),*/
 	init : function ()		{
 		this.canvas = document.getElementById("IC_RobotControl_canvas");
         this.canvas.width = 480;
         this.canvas.height = 480;
-		/*this.car.src = "http://localhost:9999/1450414843.png";*/
         this.context = this.canvas.getContext("2d");
 		this.x = 0;
 		this.y = 0;
@@ -169,7 +167,7 @@ var IC_RobotControl =	{
 		else if(IC_RobotControl.keymap[2])								IC_RobotControl.value = 3;
 		else if(IC_RobotControl.keymap[3])								IC_RobotControl.value = 5;
 		else if(IC_RobotControl.keymap[4])								IC_RobotControl.value = 7;
-		else															IC_RobotControl.value = 0;
+		else															{IC_RobotControl.value = 0;}
 		IC_RobotControl.draw();
 	},
 	clear : function()		{
@@ -363,10 +361,10 @@ function setSta(st)			{
 	else if(st == 2)	ic_p_sta_dis.innerText = "Offline";
 	else if(st == 3)	ic_p_sta_dis.innerText = "Locked";
 	else if(st == 4)	ic_p_sta_dis.innerText = "Closed";
-	else				ic_p_sta_dis.innerText = "Error";
+	else				{ic_p_sta_dis.innerText = "Error";}
 	for(var i=0; i<6; i++)	ic_p_sta_ico.classList.remove(ic_p_sta_icocls[i]);
 	if(st >= 0 && st <= 4)	ic_p_sta_ico.classList.add(ic_p_sta_icocls[st]);
-	else 					ic_p_sta_ico.classList.add(ic_p_sta_icocls[5]);
+	else 					{ic_p_sta_ico.classList.add(ic_p_sta_icocls[5]);}
 }
 function loadRoot()			{
     var str = document.URL;
@@ -378,17 +376,17 @@ function loadRoot()			{
             str = str.substr(0, ind) + "/";
             ind = -1;
         }
-        else	ind = str.indexOf("/", pos);
+        else	{ind = str.indexOf("/", pos);}
     }
     return str;
 }
 function HttpReq_XHR_Data(meth, url, data, call)	{
 	var xhr;
 	if (window.XMLHttpRequest)	xhr = new XMLHttpRequest();
-	else						xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	else						{xhr = new ActiveXObject("Microsoft.XMLHTTP");}
 	/*xhr.open(meth, url + ((url.indexOf("?") >= 0 ? "&" : "?") + "t=" + new Date().getTime()));*/
 	if(url.indexOf("?") >= 0)	url += "&";
-	else 						url += "?";
+	else 						{url += "?";}
 	url += "t=" + new Date().getTime();
 	xhr.open(meth, url);
 	if (data != undefined && data != null)	xhr.setRequestHeader("IC-Web-Data", atob(data));
@@ -403,7 +401,7 @@ function HttpReq_XHR_Data(meth, url, data, call)	{
 					errorcal();
 				}
 			}
-			else	errorcal();
+			else	{errorcal();}
 			function errorcal(){call("{\"success\":false,\"error\":\"Server response error\"}", xhr.status);}
 		}
 	};
@@ -417,7 +415,7 @@ function HttpReq_XHR_Data(meth, url, data, call)	{
 				setSta(2);
 			}
 		}
-		else console.log(e);
+		else {console.log(e);}
 	};
 	xhr.send(null);
 }
@@ -448,7 +446,7 @@ function resetOk()		{
 }
 function accclick()		{
 	if(ic_p_log.style.display == "none" || ic_p_log.style.display == "")	ic_p_log.style.display = "block";
-	else	ic_p_log.style.display = "none";
+	else	{ic_p_log.style.display = "none";}
 	if(ic_p_log.style.display == "block")
 	ic_p_log_n.style.display = "none";
 }
@@ -504,7 +502,7 @@ function DataUpdate()	{
 			document.getElementById("ic_p_err_bi").style.display = "block";
 			setSta(4);
 		}
-		else		setSta(1);
+		else		{setSta(1);}
 	});
 }
 function OnData(value)	{
