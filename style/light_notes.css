@@ -1,0 +1,59 @@
+/* Copyright © Imesh Chamara 2019 */
+#root, body, html {
+	background-color:#fff;
+	color:#000;
+}
+.headd {
+	font-family:"Montserrat", sans-serif;
+	font-size:36px;
+	display:block;
+}
+.cont {
+	display:block;
+	font-family:"Lato", sans-serif;
+	font-size:18px;
+	line-height: 1.5;
+}
+.link {
+	color:#f44336;
+	font-family:'Segoe UI';
+	font-size:16px;
+	text-decoration:none;
+}
+.sect {
+	display: flex;
+	max-width: 890px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.sect-1 {
+	padding: 34px 20px;
+}
+.sect-2 {
+	background-color: #f1f1f1;
+}
+.sect-3 {
+	display: inline-block;
+	width: 66.66666%;
+}
+.ico {
+	display:inline-block;
+	width: 33.33333%;
+	text-align: center;
+	color: #f44336;
+}
+.ic-btn {
+	margin-left:0;
+}
+@media (max-width:600px) {
+	.sect-3,.ico {
+		display:block;
+		width:100%;
+	}
+	.sect {
+		display:block
+	}
+	.ico {
+		margin:10px;
+	}
+}
