@@ -17,30 +17,15 @@
 	line-height:1.5;
 }
 .ic-p-sta {
-	display: flex;
-	width: 200px;
-	margin: auto;
+	display: block;
+	width: 100%;
 	margin-bottom: 16px;
+	text-align: center;
 }
 #ic_p_sta_ico {
 	margin: 0 6px;
-}
-.ic-p-itm  {
-	width: 200px;
-	margin: 6px auto;
-	display: flex;
-}
-.ic-p-itm span {
-	font-size: 16px;
-	margin-top: 4px;
-}
-.ic-p-itm i {
-	margin-left: auto;
-	cursor: pointer;
-}
-.ic-p-itmi  {
-	margin-left: 0 !important;
-	margin-right: 10px;
+	position: relative;
+	top: 8px;
 }
 #ic_p_acc {
 	display:none;
@@ -76,11 +61,6 @@
 }
 button  {
 	border: 0;
-}
-#ic_p_itm {
-	display: none;
-	background-color: #f1f1f1;
-	padding: 20px 0;
 }
 #ic_p_err_bi {
 	display:none;
