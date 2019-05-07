@@ -21,12 +21,12 @@ var ic_p_fai_msg = document.getElementById("ic_p_fai_msg");
 var ic_p_fai_btn = document.getElementById("ic_p_fai_btn");
 var ic_p_logout = document.getElementById("ic_p_logout");
 var ic_p_login = document.getElementById("ic_p_login");
-ic_p_lig1.onclick = function (){if(access == 0)return;setData("0",SwiAct(ic_p_lig1));};
-ic_p_lig2.onclick = function (){if(access == 0)return;setData("1",SwiAct(ic_p_lig2));};
-ic_p_lig3.onclick = function (){if(access == 0)return;setData("2",SwiAct(ic_p_lig3));};
-ic_p_lig4.onclick = function (){if(access == 0)return;setData("3",SwiAct(ic_p_lig4));};
-ic_p_fan1.onclick = function (){if(access == 0)return;setData("4",SwiAct(ic_p_fan1));};
-ic_p_fan2.onclick = function (){if(access == 0)return;setData("5",SwiAct(ic_p_fan2));};
+ic_p_lig1.onchange = function () { change_itm("0", ic_p_lig1); };
+ic_p_lig2.onchange = function () { change_itm("1", ic_p_lig2); };
+ic_p_lig3.onchange = function () { change_itm("2", ic_p_lig3); };
+ic_p_lig4.onchange = function () { change_itm("3", ic_p_lig4); };
+ic_p_fan1.onchange = function () { change_itm("4", ic_p_fan1); };
+ic_p_fan2.onchange = function () { change_itm("5", ic_p_fan2); };
 var ic_p_sta_icocls = [ "fa-sync-alt", "fa-check-circle", "fa-times-circle", "fa-lock", "fa-eye-slash", "fa-dizzy"];
 var ic_p_acc_icls = ["fa-user-circle", "fa-user-tie", "fa-user-secret"];
 var UsDa = null;
@@ -108,18 +108,18 @@ function setSta(st)		{
 	else 					ic_p_sta_ico.classList.add(ic_p_sta_icocls[5]);
 }
 function loadRoot()		{
-    var str = document.URL;
-    var pos = 0;
-    var ind = str.indexOf("/", pos);
-    while (ind < str.length && ind >= 0) {
-        pos = ind + 1;
-        if (str.substr(ind - 1, 1) != ":" && str.substr(ind - 1, 1) != "/") {
-            str = str.substr(0, ind) + "/";
-            ind = -1;
-        }
-        else	ind = str.indexOf("/", pos);
-    }
-    return str;
+	var str = document.URL;
+	var pos = 0;
+	var ind = str.indexOf("/", pos);
+	while (ind < str.length && ind >= 0) {
+		pos = ind + 1;
+		if (str.substr(ind - 1, 1) != ":" && str.substr(ind - 1, 1) != "/") {
+			str = str.substr(0, ind) + "/";
+			ind = -1;
+		}
+		else	ind = str.indexOf("/", pos);
+	}
+	return str;
 }
 function HttpReq_XHR_Data(meth, url, data, call)	{
 	var xhr;
@@ -177,14 +177,22 @@ function SetUser()		{
 		ic_p_login.style.display ="none";
 	}
 }
+function change_itm(v, el) {
+	if(access == 0) {
+		SwiAct(el, !el.checked);
+		return;
+	}
+	setData(v, SwiAct(el));
+}
 function SwiAct(el, v)	{
-	if(v == undefined || v == null)	v = !el.classList.contains("fa-toggle-on");
-	var rem, add;
-	if(v != false)	{rem = "fa-toggle-off";add = "fa-toggle-on";}
-	else			{rem = "fa-toggle-on";add = "fa-toggle-off";}
-	el.classList.remove(rem);
-	el.classList.add(add);
-	return v;
+	if(v == undefined || v == null)	return el.checked;
+	if(v != false)	{
+		el.checked = true;
+	}
+	else			{
+		el.checked = false;
+	}
+	return !(v != false);
 }
 function accclick()		{
 	if(ic_p_log.style.display == "none" || ic_p_log.style.display == "")	ic_p_log.style.display = "block";

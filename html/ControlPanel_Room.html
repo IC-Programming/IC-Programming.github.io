@@ -16,6 +16,7 @@
 		<link rel="icon" type="image/png" href="/image/Logo.3/Logo.3.196.png" sizes="196x196"/>
 		<link rel="icon" type="image/png" href="/image/Logo.3/Logo.3.512.png" sizes="512x512"/>
 		<link rel="stylesheet" href="/style/main.css"/>
+		<link rel="stylesheet" href="/style/toggle.css"/>
 		<link rel="stylesheet" href="/style/ControlPanel_Room.css"/>
 		<script src="/script/main.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet"/>
@@ -32,13 +33,13 @@
 		<div id="root">
 			<span class="ic-p-sta ic-p-tx1">Status :<i id="ic_p_sta_ico" class="fas fa-sync-alt fa-2x"></i><span id="ic_p_sta_dis" class="ic-p-tx1">Loading</span></span>
 			<div id="ic_p_load" class="ic-rot-ani" style="margin:auto;"></div>
-			<div id="ic_p_itm" style="background-color: #f1f1f1;padding: 20px 0;">
-			<div class="ic-p-itm"><i class="fas fa-lightbulb fa-2x ic-p-itmi"></i><span>Light 01</span><i id="ic_p_lig1" class="fas fa-toggle-off fa-2x"></i></div>
-			<div class="ic-p-itm"><i class="fas fa-lightbulb fa-2x ic-p-itmi"></i><span>Light 02</span><i id="ic_p_lig2" class="fas fa-toggle-off fa-2x"></i></div>
-			<div class="ic-p-itm"><i class="fas fa-lightbulb fa-2x ic-p-itmi"></i><span>Light 03</span><i id="ic_p_lig3" class="fas fa-toggle-off fa-2x"></i></div>
-			<div class="ic-p-itm"><i class="fas fa-lightbulb fa-2x ic-p-itmi"></i><span>Light 04</span><i id="ic_p_lig4" class="fas fa-toggle-off fa-2x"></i></div>
-			<div class="ic-p-itm"><i class="fas fa-radiation-alt fa-2x ic-p-itmi"></i><span>Fan 01</span><i id="ic_p_fan1" class="fas fa-toggle-off fa-2x"></i></div>
-			<div class="ic-p-itm"><i class="fas fa-radiation-alt fa-2x ic-p-itmi"></i><span>Fan 02</span><i id="ic_p_fan2" class="fas fa-toggle-off fa-2x"></i></div>
+			<div id="ic_p_itm">
+				<div class="ic-p-itm"><i class="fas fa-lightbulb ic-p-itmi"></i><span>Light 01</span><label class="ic-swi"><input id="ic_p_lig1" type="checkbox"/><div></div></label></div>
+				<div class="ic-p-itm"><i class="fas fa-lightbulb ic-p-itmi"></i><span>Light 02</span><label class="ic-swi"><input id="ic_p_lig2" type="checkbox"/><div></div></label></div>
+				<div class="ic-p-itm"><i class="fas fa-lightbulb ic-p-itmi"></i><span>Light 03</span><label class="ic-swi"><input id="ic_p_lig3" type="checkbox"/><div></div></label></div>
+				<div class="ic-p-itm"><i class="fas fa-lightbulb ic-p-itmi"></i><span>Light 04</span><label class="ic-swi"><input id="ic_p_lig4" type="checkbox"/><div></div></label></div>
+				<div class="ic-p-itm"><i class="fas fa-radiation-alt ic-p-itmi"></i><span>Fan 01</span><label class="ic-swi"><input id="ic_p_fan1" type="checkbox"/><div></div></label></div>
+				<div class="ic-p-itm"><i class="fas fa-radiation-alt ic-p-itmi"></i><span>Fan 02</span><label class="ic-swi"><input id="ic_p_fan2" type="checkbox"/><div></div></label></div>
 			</div>
 			<div id="ic_p_acc" onclick="accclick();"><i id="ic_p_acc_i" class="fas fa-user-circle fa-3x"></i><span id="ic_p_acc_na">Guest User</span></div>
 			<div id="ic_p_log">
