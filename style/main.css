@@ -18,6 +18,10 @@ body, a, h1, h2, h3, h4, h5, h6, .ic-btn2 {
 	user-select:none;
 	-moz-user-select:none;
 }
+* {
+	-webkit-backface-visibility:  hidden;
+	-webkit-tap-highlight-color:  #0000;
+}
 .ic-top-bar {
 	display:block;
 	position:fixed;
