@@ -1,0 +1,98 @@
+/* Copyright © Imesh Chamara 2019 */
+.ic-swi input, .ic-swi-and input, .ic-cb input {
+	display: none;
+}
+.ic-swi, .ic-swi div, .ic-swi-and, .ic-swi-and div, .ic-cb div {
+	display: inline-block;
+	cursor: pointer;
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-khtml-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+	-moz-user-select:none;
+}
+.ic-swi, .ic-swi div {
+	width: 64px;
+	height: 32px;
+	border-radius: 20px;
+}
+.ic-swi-and, .ic-swi-and div {
+	width: 48px;
+	height: 18px;
+	border-radius: 20px;
+}
+.ic-cb div {
+	width: 20px;
+	height: 20px;
+	border: 3px solid #aaa;
+	background-color:#fff;
+	border-radius: 5px;
+	transition-duration: 0.25s;
+}
+.ic-swi div:after, .ic-swi-and div:after, .ic-cb div:after {
+	content: '';
+	display: inline-block;
+	transition-duration: 0.25s;
+	transition-timing-function: ease-in;
+	position: absolute;
+}
+.ic-swi div:after {
+	width: 26px;
+	height: 26px;
+	background-color: #fff;
+	border-radius: 50%;
+	margin-left: 3px;
+	margin-top: 3px;
+	box-shadow: 0 2px 4px #000b;
+	transition-timing-function: ease-in;
+}
+.ic-swi-and div:after {
+	width: 26px;
+	height: 26px;
+	background-color: #ffffff;
+	border-radius: 50%;
+	margin-left: -4px;
+	margin-top: -4px;
+	box-shadow: 0 2px 4px #0006;
+}
+.ic-cb div:after {
+	width:14px;
+	height:8px;
+	background-color:#0000;
+	border: 0 solid #fff;
+	border-left-width:3px;
+	border-bottom-width:3px;
+	transform: rotate(-45deg);
+	border-radius: 3px;
+	margin-top: 1px;
+	margin-left: 1px;
+}
+.ic-swi-and {
+	margin: 6px;
+}
+.ic-swi div {
+	background-color: #aaa;
+	transition-duration: 0.25s;
+}
+.ic-swi-and div {
+	background-color: #aaa;
+	transition-duration: 0.25s;
+}
+.ic-swi input:checked ~ div:after {
+	margin-left: 35px;
+}
+.ic-swi-and input:checked ~ div:after {
+	margin-left: 26px;
+	background-color: #f44336;
+}
+.ic-swi input:checked ~ div {
+	background-color: #f44336;
+}
+.ic-cb input:checked ~ div {
+	background-color:#f44336;
+	border-color: #f44336;
+}
+.ic-swi-and input:checked ~ div {
+	background-color: #f28a82;
+}
