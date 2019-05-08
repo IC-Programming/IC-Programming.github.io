@@ -3,10 +3,12 @@ var txtin = document.getElementById("txtin");
 var txtout = document.getElementById("txtout");
 var logBtn = document.getElementById("logBtn");
 var logKey = document.getElementById("logKey");
+var ic_p_fai = document.getElementById("ic_p_fai");
+var ic_p_cont = document.getElementById("ic-p-cont");
+var ic_p_load = document.getElementById("ic-p-load");
 var hostLocation = document.location.origin;
 var dataset1 = null;
 var dataset2 = null;
-txtin.oninput = changed;
 var logWait = null;
 var onresize_State = 0;
 function changed() {
@@ -73,30 +75,39 @@ function match1(str, mo) {
 			Max = datas[i];
 	return Max;
 }
-function Getdataset(fn, link) {
-	var server = new XMLHttpRequest();
-	server.open("GET", hostLocation + link);
-	server.onreadystatechange = function () {
-		if (server.readyState == 4) {
-			var JS = JSON.parse(server.responseText);
-			fn(JS, server);
+function ReloadError(msg)	{
+	ic_p_cont.style.display = "none";
+	ic_p_load.style.display = "none";
+	ic_p_fai.style.display = "block";
+	ic_p_fai_msg.innerText = msg;
+	ic_p_fai_btn.onclick = function(){location.reload();};
+}
+function Getdataset(fn, addr) {
+	var url = hostLocation + addr;
+	var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+	xhr.open("GET", url + ((url.indexOf("?") >= 0 ? "&" : "?") + "t=" + new Date().getTime()));
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState == 4 && xhr.status != 0) {
+			if(xhr.response) {
+				try {
+					fn(JSON.parse(xhr.response));
+				} catch(e) {
+					ReloadError("Server response error. (EC: 0xA2 >>> " + e + " <)");
+				}
+			}
+			else
+				ReloadError("Server response error. (EC: 0xA1)");
 		}
 	};
-	server.send(null);
+	xhr.onerror = function (e) {
+		if(e.target.status == 0)
+		{
+			ReloadError("The Webpage can't connect to the server. Try again in a few moments.");
+		}
+		else console.log(e);
+	};
+	xhr.send(null);
 }
-Getdataset(function (JS1, server1) {
-    dataset1 = JS1["IC.WebSite.Page_Convert.DataSet_1"].Data;
-    Getdataset(function (JS2, server2) {
-        dataset2 = JS2["IC.WebSite.Page_Convert.DataSet_2"].Data;
-		txtin.value = "imeaSh chaamara nirmaaNaya karana ladha akShara parivarthana \"Web\" pituva.\nmemagin pasuven si\\nhala \"Unicode\" akShara labaa gatha hAka.";
-		changed();
-		document.getElementById("ic-p-cont").style.display = "table";
-		document.getElementById("ic-p-load").style.display = "none";
-		auto_grow(txtin);
-		auto_grow(txtout);
-    }, "/api/convert/DataSet_2.json");
-}, "/api/convert/DataSet_1.json");
-document.body.onresize = onresize;
 function onresize()
 {
 	if(dataset1 == null || dataset2 == null)
@@ -125,3 +136,18 @@ function auto_grow(element) {
     txtin.style.height = "5px";
     txtin.style.height = (txtin.scrollHeight)+"px";
 }
+
+Getdataset(function (JS1) {
+    dataset1 = JS1["IC.WebSite.Page_Convert.DataSet_1"].Data;
+    Getdataset(function (JS2) {
+        txtin.oninput = changed;
+		txtin.value = "imeaSh chaamara nirmaaNaya karana ladha akShara parivarthana \"Web\" pituva.\nmemagin pasuven si\\nhala \"Unicode\" akShara labaa gatha hAka.";
+		dataset2 = JS2["IC.WebSite.Page_Convert.DataSet_2"].Data;
+		changed();
+		document.getElementById("ic-p-cont").style.display = "table";
+		document.getElementById("ic-p-load").style.display = "none";
+		auto_grow(txtin);
+		auto_grow(txtout);
+    }, "/api/convert/DataSet_2.json");
+}, "/api/convert/DataSet_1.json");
+document.body.onresize = onresize;
