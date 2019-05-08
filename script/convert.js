@@ -32,16 +32,12 @@ function changed() {
         else {
             var str3 = str1.substring(0, 2);
             var pos = 0;
-            if (str3 != "\"\"" && str3.startsWith("\"")) {
+            if (str3 != "\"\"" && str3.indexOf("\"") == 0) {
                 var ind = str1.indexOf("\"", 1);
                 while (ind >= 0) {
                     pos = ind;
                     var str3 = str1.substring(ind, ind + 2);
-                    if (str3 != "\"\"" && str3.startsWith("\"")) {
-                        ind = -2;
-                    }
-                    else
-                        ind = str1.indexOf("\"", ind + 1);
+                    ind = (str3 != "\"\"" && str3.indexOf("\"") == 0) ? -2 : str1.indexOf("\"", ind + 1);
                 }
                 if (ind != -2) {
                     pos == 0;
@@ -62,9 +58,9 @@ function changed() {
 function match1(str, mo) {
 	var datas = [];
 	var datasCount = 0;
-	for (var i = 0; i < (mo == 1? dataset1: dataset2).length; i++)
+	for (var i = 0; i < (mo == 1 ? dataset1: dataset2).length; i++)
 	{
-		if (str.startsWith(mo == 1 ? dataset1[i][0] : dataset2[i][0])) {
+		if (str.indexOf(mo == 1 ? dataset1[i][0] : dataset2[i][0]) == 0) {
 			datas[datasCount] = [i, (mo == 1 ? dataset1[i][0] : dataset2[i][0]).length];
 			datasCount++;
 		}
@@ -111,22 +107,13 @@ function Getdataset(fn, addr) {
 function onresize()
 {
 	if(dataset1 == null || dataset2 == null)
-	{
 		return;
-	}
 	if((onresize_State == 0) || (onresize_State == 1 && document.body.offsetWidth > 540) || (onresize_State == 2 && document.body.offsetWidth <= 540))
 	{
 		changed();
 		auto_grow(txtin);
 		auto_grow(txtout);
-		if(document.body.offsetWidth > 540)
-		{
-			onresize_State = 2;
-		}
-		else
-		{
-			onresize_State = 1;
-		}
+		onresize_State = document.body.offsetWidth > 540 ? 2 : 1;
 	}
 }
 function auto_grow(element) {
