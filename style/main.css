@@ -94,7 +94,7 @@ a {
 	border: #f44336 solid 0;
 	border-bottom-width: 1px;
 }
-@media only screen and (max-width: 540px) {
+@media (max-width: 540px) {
 	#top-dropdown-btn {
 		display:inline-block;
 	}
@@ -102,7 +102,7 @@ a {
 		display:none;
 	}
 }
-@media only screen and not (max-width: 540px) {
+@media not(max-width: 540px) {
 	#ic-top-drbtn {
 		display:none !important;
 	}
